@@ -73,10 +73,7 @@ variable "enabled" {
   default = true
 }
 
-variable "firewall_enabled" {
-  type    = bool
-  default = true
-}
+
 
 variable "route_enabled" {
   type    = bool
@@ -131,7 +128,7 @@ variable "dest_range" {
 
 variable "next_hop_gateway" {
   type        = string
-  default     = ""
+  default     = "default-internet-gateway"
   description = "URL to a gateway that should handle matching packets."
 }
 
@@ -155,13 +152,13 @@ variable "nat_ip_allocate_option" {
 
 variable "source_subnetwork_ip_ranges_to_nat" {
   type        = string
-  default     = ""
+  default     = "ALL_SUBNETWORKS_ALL_IP_RANGES"
   description = "How NAT should be configured per Subnetwork."
 }
 
 variable "filter" {
   type        = string
-  default     = "ALL"
+  default     = "ERRORS_ONLY"
   description = "Specifies the desired filtering of logs on this NAT."
 }
 variable "description" {
@@ -178,7 +175,7 @@ variable "purpose" {
 
 variable "ipv6_access_type" {
   type        = string
-  default     = ""
+  default     = "EXTERNAL"
   description = "The access type of IPv6 address this subnet holds."
 }
 
@@ -216,4 +213,3 @@ variable "icmp_idle_timeout_sec" {
   default     = 30
   description = " (Optional) Timeout (in seconds) for ICMP connections. Defaults to 30s if not set."
 }
-

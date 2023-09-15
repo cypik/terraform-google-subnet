@@ -26,18 +26,6 @@ output "subnet_self_link" {
   value = module.subnet.subnet_self_link
 }
 
-output "firewall_id" {
-  value = module.subnet.firewall_id
-}
-
-output "firewall_creation_timestamp" {
-  value = module.subnet.firewall_creation_timestamp
-}
-
-output "firewall_self_link" {
-  value = module.subnet.firewall_self_link
-}
-
 output "route_id" {
   value = module.subnet.route_id
 }
@@ -89,4 +77,3 @@ output "router_net_project" {
 output "router_net_region" {
   value = module.subnet.router_net_region
 }
-

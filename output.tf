@@ -28,19 +28,6 @@ output "subnet_self_link" {
   value = join("", google_compute_subnetwork.subnetwork.*.self_link)
 }
 
-
-output "firewall_id" {
-  value = join("", google_compute_firewall.default.*.id)
-}
-
-output "firewall_creation_timestamp" {
-  value = join("", google_compute_firewall.default.*.creation_timestamp)
-}
-
-output "firewall_self_link" {
-  value = join("", google_compute_firewall.default.*.self_link)
-}
-
 output "route_id" {
   value = join("", google_compute_route.default.*.id)
 }
@@ -92,4 +79,3 @@ output "router_net_project" {
 output "router_net_region" {
   value = join("", google_compute_router_nat.nat.*.region)
 }
-
