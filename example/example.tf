@@ -7,13 +7,10 @@ provider "google" {
 #####==============================================================================
 ##### module-vpc
 #####==============================================================================
-
 module "vpc" {
-  source = "git::git@github.com:opz0/terraform-gcp-vpc.git?ref=master"
-
+  source                                    = "git::https://github.com/opz0/terraform-gcp-vpc.git?ref=v1.0.0"
   name                                      = "app"
   environment                               = "test"
-  project_id                                = "opz0-397319"
   routing_mode                              = "REGIONAL"
   network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
 }
@@ -22,13 +19,11 @@ module "vpc" {
 ##### module-subnetwork
 #####==============================================================================
 module "subnet" {
-  source = "./.././"
-
+  source              = "./.././"
   name                = "app"
   environment         = "test"
   gcp_region          = "asia-northeast1"
-  project_id          = "opz0-397319"
   network             = module.vpc.vpc_id
-  source_ranges       = ["10.10.0.0/16"]
+  ip_cidr_range       = "10.10.0.0/16"
   secondary_ip_ranges = [{ "range_name" : "services", "ip_cidr_range" : "10.1.0.0/16" }, { "range_name" : "pods", "ip_cidr_range" : "10.3.0.0/16" }]
 }

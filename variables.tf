@@ -33,12 +33,6 @@ variable "network" {
   description = "(Required) The VPC network the subnets belong to. Only networks that are in the distributed mode can have subnetworks."
 }
 
-variable "project_id" {
-  type        = string
-  default     = ""
-  description = "(Optional) The ID of the project in which the resource belongs. If it is not set, the provider project is used."
-}
-
 variable "private_ip_google_access" {
   type        = bool
   default     = true
@@ -108,18 +102,6 @@ variable "gcp_region" {
   description = "Google Cloud region"
 }
 
-variable "allow" {
-  type        = list(any)
-  default     = []
-  description = "(Optional) The list of ALLOW rules specified by this firewall. Each rule specifies a protocol and port-range tuple that describes a permitted connection."
-}
-
-variable "source_ranges" {
-  type        = any
-  default     = []
-  description = "(Optional) If source ranges are specified, the firewall will apply only to traffic that has source IP address in these ranges."
-}
-
 variable "dest_range" {
   type        = string
   default     = "0.0.0.0/0"
@@ -178,23 +160,23 @@ variable "ipv6_access_type" {
   default     = "EXTERNAL"
   description = "The access type of IPv6 address this subnet holds."
 }
+#
+#variable "direction" {
+#  type    = string
+#  default = "INGRESS"
+#}
 
-variable "direction" {
-  type    = string
-  default = "INGRESS"
-}
+#variable "disabled" {
+#  type        = bool
+#  default     = true
+#  description = " (Optional) Denotes whether the firewall rule is disabled, i.e not applied to the network it is associated with. When set to true, the firewall rule is not enforced and the network behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled."
+#}
 
-variable "disabled" {
-  type        = bool
-  default     = true
-  description = " (Optional) Denotes whether the firewall rule is disabled, i.e not applied to the network it is associated with. When set to true, the firewall rule is not enforced and the network behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled."
-}
-
-variable "address_type" {
-  type        = string
-  default     = "EXTERNAL"
-  description = " (Optional) The type of address to reserve. Note: if you set this argument's value as INTERNAL you need to leave the network_tier argument unset in that resource block. Default value is EXTERNAL. Possible values are: INTERNAL, EXTERNAL."
-}
+#variable "address_type" {
+#  type        = string
+#  default     = "EXTERNAL"
+#  description = " (Optional) The type of address to reserve. Note: if you set this argument's value as INTERNAL you need to leave the network_tier argument unset in that resource block. Default value is EXTERNAL. Possible values are: INTERNAL, EXTERNAL."
+#}
 
 variable "ip_version" {
   type        = string
