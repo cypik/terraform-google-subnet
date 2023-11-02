@@ -47,6 +47,7 @@ module "subnet" {
 ```
 Make sure to configure the variables according to your requirements.
 
+
 ## Module Inputs
 - name (string): The name of the infrastructure components.
 - environment (string): The environment in which the infrastructure is being created.
