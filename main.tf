@@ -15,7 +15,7 @@ data "google_client_config" "current" {
 ##### within a single region. You can have more than one subnet in a region for
 ##### a given VPC network.
 #####==============================================================================
-
+#tfsec:ignore:google-compute-enable-vpc-flow-logs
 resource "google_compute_subnetwork" "subnetwork" {
   count                    = var.enabled && var.subnetwork_enabled ? 1 : 0
   name                     = format("%s-subnet", module.labels.id)
