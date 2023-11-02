@@ -22,14 +22,13 @@ To get started, make sure you have configured your GCP provider. You can use the
 
 
 module "subnet" {
-  source = "https://github.com/opz0/terraform-gcp-subnet.git"
+  source = "git::https://github.com/opz0/terraform-gcp-subnet.git?ref=v1.0.0"
 
   name                = "app"
   environment         = "test"
   gcp_region          = "asia-northeast1"
-  project_id          = "opz0-397319"
   network             = module.vpc.vpc_id
-  source_ranges       = ["10.10.0.0/16"]
+  ip_cidr_range       = "10.10.0.0/16"
   secondary_ip_ranges = [
     { "range_name" : "services", "ip_cidr_range" : "10.1.0.0/16" },
     { "range_name" : "pods", "ip_cidr_range" : "10.3.0.0/16" }
