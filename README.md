@@ -44,7 +44,7 @@ module "subnet" {
     { "range_name" : "pods", "ip_cidr_range" : "10.3.0.0/16" }
   ]
 }
-
+```
 Make sure to configure the variables according to your requirements.
 
 ## Module Inputs
