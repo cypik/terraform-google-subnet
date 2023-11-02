@@ -20,15 +20,6 @@ To get started, make sure you have configured your GCP provider. You can use the
 
 ```hcl
 
-module "vpc" {
-  source = "git::git@github.com:opz0/terraform-gcp-vpc.git?ref=master"
-
-  name                                      = "app"
-  environment                               = "test"
-  project_id                                = "opz0-397319"
-  routing_mode                              = "REGIONAL"
-  network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
-}
 
 module "subnet" {
   source = "https://github.com/opz0/terraform-gcp-subnet.git"
