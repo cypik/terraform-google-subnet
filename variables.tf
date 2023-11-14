@@ -29,7 +29,7 @@ variable "managedby" {
 
 variable "name" {
   type    = string
-  default = ""
+  default = "test"
 }
 
 variable "network" {

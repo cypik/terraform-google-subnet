@@ -20,7 +20,7 @@ To get started, make sure you have configured your GCP provider. You can use the
 
 ```hcl
 module "subnet" {
-  source        = "git::https://github.com/opz0/terraform-gcp-subnet.git?ref=v1.0.0"
+  source        = "git::https://github.com/opz0/terraform-gcp-subnet.git?ref=v1.0.1"
   subnet_names  = ["subnet-a", "subnet-b", "subnet-c"]
   gcp_region    = "asia-northeast1"
   network       = module.vpc.vpc_id
