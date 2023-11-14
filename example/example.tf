@@ -19,11 +19,9 @@ module "vpc" {
 ##### module-subnetwork
 #####==============================================================================
 module "subnet" {
-  source              = "./.././"
-  name                = "app"
-  environment         = "test"
-  gcp_region          = "asia-northeast1"
-  network             = module.vpc.vpc_id
-  ip_cidr_range       = "10.10.0.0/16"
-  secondary_ip_ranges = [{ "range_name" : "services", "ip_cidr_range" : "10.1.0.0/16" }, { "range_name" : "pods", "ip_cidr_range" : "10.3.0.0/16" }]
+  source        = "./.././"
+  subnet_names  = ["subnet-a", "subnet-b", "subnet-c"]
+  gcp_region    = "asia-northeast1"
+  network       = module.vpc.vpc_id
+  ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24", "10.10.10.0/24"]
 }

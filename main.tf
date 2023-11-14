@@ -17,8 +17,8 @@ data "google_client_config" "current" {
 #####==============================================================================
 #tfsec:ignore:google-compute-enable-vpc-flow-logs
 resource "google_compute_subnetwork" "subnetwork" {
-  count                    = var.enabled && var.subnetwork_enabled ? 1 : 0
-  name                     = format("%s-subnet", module.labels.id)
+  count                    = length(var.subnet_names)
+  name                     = var.subnet_names[count.index]
   project                  = data.google_client_config.current.project
   network                  = var.network
   region                   = var.gcp_region
@@ -26,7 +26,7 @@ resource "google_compute_subnetwork" "subnetwork" {
   purpose                  = var.purpose
   ipv6_access_type         = var.ipv6_access_type
   private_ip_google_access = var.private_ip_google_access
-  ip_cidr_range            = var.ip_cidr_range
+  ip_cidr_range            = var.ip_cidr_range[count.index]
   dynamic "secondary_ip_range" {
     for_each = var.secondary_ip_ranges
     content {

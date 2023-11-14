@@ -1,3 +1,8 @@
+variable "subnet_names" {
+  type    = list(string)
+  default = []
+}
+
 variable "environment" {
   type        = string
   default     = ""
@@ -40,8 +45,8 @@ variable "private_ip_google_access" {
 }
 
 variable "ip_cidr_range" {
-  type        = string
-  default     = "10.10.0.0/24"
+  type        = list(string)
+  default     = [""]
   description = "(Required) The range of internal addresses that are owned by this subnetwork. Provide this property when you create the subnetwork. For example, 10.0.0.0/8 or 192.168.0.0/16. Ranges must be unique and non-overlapping within a network. Only IPv4 is supported."
 }
 
@@ -57,17 +62,10 @@ variable "log_config" {
   description = "(Optional) Logging options for the subnetwork flow logs. Setting this value to 'null' will disable them. See https://www.terraform.io/docs/providers/google/r/compute_subnetwork.html for more information and examples."
 }
 
-variable "subnetwork_enabled" {
-  type    = bool
-  default = true
-}
-
 variable "enabled" {
   type    = bool
   default = true
 }
-
-
 
 variable "route_enabled" {
   type    = bool
@@ -88,7 +86,6 @@ variable "router_enabled" {
   type    = bool
   default = true
 }
-
 
 variable "module_timeouts" {
   type        = any
@@ -143,12 +140,13 @@ variable "filter" {
   default     = "ERRORS_ONLY"
   description = "Specifies the desired filtering of logs on this NAT."
 }
+
 variable "description" {
   type        = string
   default     = ""
   description = "(Optional) An optional description of the VPC. The resource must be recreated to modify this field.Default is ''."
-
 }
+
 variable "purpose" {
   type        = string
   default     = ""
@@ -160,23 +158,6 @@ variable "ipv6_access_type" {
   default     = "EXTERNAL"
   description = "The access type of IPv6 address this subnet holds."
 }
-#
-#variable "direction" {
-#  type    = string
-#  default = "INGRESS"
-#}
-
-#variable "disabled" {
-#  type        = bool
-#  default     = true
-#  description = " (Optional) Denotes whether the firewall rule is disabled, i.e not applied to the network it is associated with. When set to true, the firewall rule is not enforced and the network behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled."
-#}
-
-#variable "address_type" {
-#  type        = string
-#  default     = "EXTERNAL"
-#  description = " (Optional) The type of address to reserve. Note: if you set this argument's value as INTERNAL you need to leave the network_tier argument unset in that resource block. Default value is EXTERNAL. Possible values are: INTERNAL, EXTERNAL."
-#}
 
 variable "ip_version" {
   type        = string
