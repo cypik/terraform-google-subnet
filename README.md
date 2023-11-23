@@ -17,14 +17,14 @@ This Terraform configuration sets up a Google Cloud Platform (GCP) infrastructur
 ## Usage
 
 To get started, make sure you have configured your GCP provider. You can use the following code as a starting point:
-
+## Example: subnet
 ```hcl
 module "subnet" {
-  source        = "git::https://github.com/opz0/terraform-gcp-subnet.git?ref=v1.0.1"
-  subnet_names  = ["subnet-a", "subnet-b", "subnet-c"]
+  source        = "git::https://github.com/cypik/terraform-gcp-subnet.git?ref=v1.0.0"
+  subnet_names  = ["subnet-a", "subnet-b"]
   gcp_region    = "asia-northeast1"
   network       = module.vpc.vpc_id
-  ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24", "10.10.10.0/24"]
+  ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24"]
 }
 ```
 Make sure to configure the variables according to your requirements.
@@ -38,10 +38,10 @@ Make sure to configure the variables according to your requirements.
 - network_firewall_policy_enforcement_order (string): The enforcement order for network firewall policies.
 
 ## Examples
-- For detailed examples on how to use this module, please refer to the 'examples' directory within this repository.
+- For detailed examples on how to use this module, please refer to the '[examples](https://github.com/cypik/terraform-gcp-subnet/blob/master/example)' directory within this repository.
 
 ## Author
 Your Name Replace '[License Name]' and '[Your Name]' with the appropriate license and your information. Feel free to expand this README with additional details or usage instructions as needed for your specific use case.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/opz0/terraform-gcp-subnet/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/cypik/terraform-gcp-subnet/blob/master/LICENSE) file for details.

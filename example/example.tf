@@ -8,7 +8,7 @@ provider "google" {
 ##### module-vpc
 #####==============================================================================
 module "vpc" {
-  source                                    = "git::https://github.com/opz0/terraform-gcp-vpc.git?ref=v1.0.0"
+  source                                    = "git::https://github.com/cypik/terraform-gcp-vpc.git?ref=v1.0.0"
   name                                      = "app"
   environment                               = "test"
   routing_mode                              = "REGIONAL"
@@ -20,8 +20,8 @@ module "vpc" {
 #####==============================================================================
 module "subnet" {
   source        = "./.././"
-  subnet_names  = ["subnet-a", "subnet-b", "subnet-c"]
+  subnet_names  = ["subnet-a", "subnet-b"]
   gcp_region    = "asia-northeast1"
   network       = module.vpc.vpc_id
-  ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24", "10.10.10.0/24"]
+  ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24"]
 }
