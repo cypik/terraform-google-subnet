@@ -4,7 +4,7 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Usage](#usage)
+  - [Usage](#usage)
 - [Module Inputs](#module-inputs)
 - [Examples](#examples)
 - [Author](#author)
@@ -20,7 +20,7 @@ To get started, make sure you have configured your GCP provider. You can use the
 
 ```hcl
 module "subnet" {
-  source        = "git::https://github.com/opz0/terraform-gcp-subnet.git?ref=v1.0.1"
+  source        = "git::https://github.com/cypik/terraform-gcp-subnet.git?ref=v1.0.1"
   subnet_names  = ["subnet-a", "subnet-b", "subnet-c"]
   gcp_region    = "asia-northeast1"
   network       = module.vpc.vpc_id
@@ -44,4 +44,4 @@ Make sure to configure the variables according to your requirements.
 Your Name Replace '[License Name]' and '[Your Name]' with the appropriate license and your information. Feel free to expand this README with additional details or usage instructions as needed for your specific use case.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/opz0/terraform-gcp-subnet/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/cypik/terraform-gcp-subnet/blob/master/LICENSE) file for details.
