@@ -21,10 +21,10 @@ To get started, make sure you have configured your GCP provider. You can use the
 ```hcl
 module "subnet" {
   source        = "git::https://github.com/cypik/terraform-gcp-subnet.git?ref=v1.0.0"
-  subnet_names  = ["subnet-a", "subnet-b", "subnet-c"]
+  subnet_names  = ["subnet-a", "subnet-b"]
   gcp_region    = "asia-northeast1"
   network       = module.vpc.vpc_id
-  ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24", "10.10.10.0/24"]
+  ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24"]
 }
 ```
 Make sure to configure the variables according to your requirements.
