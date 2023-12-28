@@ -1,5 +1,5 @@
 provider "google" {
-  project = "opz0-397319"
+  project = "local-concord-408802"
   region  = "asia-northeast1"
   zone    = "asia-northeast1-a"
 }
@@ -24,4 +24,7 @@ module "subnet" {
   gcp_region    = "asia-northeast1"
   network       = module.vpc.vpc_id
   ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24"]
+  secondary_ip_ranges = [
+
+  ]
 }
