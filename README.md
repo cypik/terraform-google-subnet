@@ -1,4 +1,4 @@
-# terraform-gcp-subnet
+# Terraform-gcp-subnet
 # GCP Infrastructure Terraform Configuration
 
 ## Table of Contents
@@ -12,7 +12,7 @@
 
 ## Introduction
 
-This project deploys a Google Cloud infrastructure using Terraform to create **SUBNET** .
+This project deploys a Google Cloud infrastructure using Terraform to create Subnet .
 
 
 ## Usage
@@ -39,7 +39,7 @@ Make sure to configure the variables according to your requirements.
 - `network_firewall_policy_enforcement_order` : The enforcement order for network firewall policies.
 
 ## Examples
-- For detailed examples on how to use this module, please refer to the [EXAMPLES](https://github.com/cypik/terraform-gcp-subnet/tree/master/example) directory within this repository.
+- For detailed examples on how to use this module, please refer to the [Examples](https://github.com/cypik/terraform-gcp-subnet/tree/master/example) directory within this repository.
 
 ## Author
 Your Name Replace **'[License Name]'** and **'[Your Name]'** with the appropriate license and your information. Feel free to expand this README with additional details or usage instructions as needed for your specific use case.
