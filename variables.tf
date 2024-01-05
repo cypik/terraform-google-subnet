@@ -17,7 +17,7 @@ variable "label_order" {
 
 variable "repository" {
   type        = string
-  default     = "https://github.com/cypik/terraform-gcp-subnet.git"
+  default     = "https://github.com/cypik/terraform-gcp-subnet"
   description = "Terraform current module repo"
 }
 
@@ -29,7 +29,7 @@ variable "managedby" {
 
 variable "name" {
   type    = string
-  default = "test1"
+  default = "app-test"
 }
 
 variable "network" {
