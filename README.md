@@ -18,7 +18,7 @@ This project deploys a Google Cloud infrastructure using Terraform to create Sub
 ## Usage
 
 To get started, make sure you have configured your GCP provider. You can use the following code as a starting point:
-## Example: _subnet_
+## Example: _Subnet_
 ```hcl
 module "subnet" {
   source        = "git::https://github.com/cypik/terraform-gcp-subnet.git?ref=v1.0.0"
