@@ -1,6 +1,7 @@
 variable "subnet_names" {
-  type    = list(string)
-  default = []
+  type        = list(string)
+  default     = []
+  description = " The name of the resource, provided by the client when initially creating the resource."
 }
 
 variable "environment" {
@@ -17,19 +18,20 @@ variable "label_order" {
 
 variable "repository" {
   type        = string
-  default     = "https://github.com/cypik/terraform-gcp-subnet"
+  default     = "https://github.com/cypik/terraform-google-subnet"
   description = "Terraform current module repo"
 }
 
 variable "managedby" {
   type        = string
-  default     = ""
+  default     = "cypik"
   description = "ManagedBy, eg 'cypik'."
 }
 
 variable "name" {
-  type    = string
-  default = "test-app"
+  type        = string
+  default     = "app"
+  description = " The name of the resource, provided by the client when initially creating the resource."
 }
 
 variable "network" {
@@ -63,29 +65,35 @@ variable "log_config" {
 }
 
 variable "enabled" {
-  type    = bool
-  default = true
+  type        = bool
+  default     = true
+  description = "Toggle to enable or disable the main functionality."
 }
 
 variable "route_enabled" {
-  type    = bool
-  default = true
+  type        = bool
+  default     = true
+  description = "Toggle to enable or disable routing functionality."
 }
 
 variable "address_enabled" {
-  type    = bool
-  default = true
+  type        = bool
+  default     = true
+  description = "Toggle to enable or disable address functionality."
 }
 
 variable "router_nat_enabled" {
-  type    = bool
-  default = true
+  type        = bool
+  default     = true
+  description = "Toggle to enable or disable NAT functionality for the router."
 }
 
 variable "router_enabled" {
-  type    = bool
-  default = true
+  type        = bool
+  default     = true
+  description = "Toggle to enable or disable the router."
 }
+
 
 variable "module_timeouts" {
   type        = any
