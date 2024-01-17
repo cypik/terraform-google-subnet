@@ -30,7 +30,7 @@ variable "managedby" {
 
 variable "name" {
   type        = string
-  default     = "app"
+  default     = ""
   description = " The name of the resource, provided by the client when initially creating the resource."
 }
 
