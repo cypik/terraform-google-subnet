@@ -35,7 +35,7 @@ Make sure to configure the variables according to your requirements.
 
 
 ## Examples
-- For detailed examples on how to use this module, please refer to the [Examples](https://github.com/cypik/terraform-google-subnet/tree/master/example) directory within this repository.
+For detailed examples on how to use this module, please refer to the [Examples](https://github.com/cypik/terraform-google-subnet/tree/master/example) directory within this repository.
 
 ## Author
 Your Name Replace **MIT** and **Cypik** with the appropriate license and your information. Feel free to expand this README with additional details or usage instructions as needed for your specific use case.
@@ -94,7 +94,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_log_config"></a> [log\_config](#input\_log\_config) | (Optional) Logging options for the subnetwork flow logs. Setting this value to 'null' will disable them. See https://www.terraform.io/docs/providers/google/r/compute_subnetwork.html for more information and examples. | `any` | `null` | no |
 | <a name="input_managedby"></a> [managedby](#input\_managedby) | ManagedBy, eg 'cypik'. | `string` | `"cypik"` | no |
 | <a name="input_module_timeouts"></a> [module\_timeouts](#input\_module\_timeouts) | (Optional) How long certain operations (per resource type) are allowed to take before being considered to have failed. | `any` | `{}` | no |
-| <a name="input_name"></a> [name](#input\_name) | The name of the resource, provided by the client when initially creating the resource. | `string` | `"test-app"` | no |
+| <a name="input_name"></a> [name](#input\_name) | The name of the resource, provided by the client when initially creating the resource. | `string` | `"app"` | no |
 | <a name="input_nat_ip_allocate_option"></a> [nat\_ip\_allocate\_option](#input\_nat\_ip\_allocate\_option) | How external IPs should be allocated for this NAT. | `string` | `"MANUAL_ONLY"` | no |
 | <a name="input_network"></a> [network](#input\_network) | (Required) The VPC network the subnets belong to. Only networks that are in the distributed mode can have subnetworks. | `string` | `""` | no |
 | <a name="input_next_hop_gateway"></a> [next\_hop\_gateway](#input\_next\_hop\_gateway) | URL to a gateway that should handle matching packets. | `string` | `"default-internet-gateway"` | no |
