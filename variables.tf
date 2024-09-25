@@ -96,7 +96,7 @@ variable "stack_type" {
 
 variable "private_ip_google_access" {
   type        = bool
-  default     = false
+  default     = true
   description = "Enable private IP Google access for the subnetwork."
 }
 
@@ -204,37 +204,37 @@ variable "route_enabled" {
 variable "routes" {
   description = "Map of routes to be created"
   type = map(object({
-    description            = optional(string)
-    tags                   = optional(string)
-    destination_range      = optional(string)
-    next_hop_internet      = optional(string)
-    next_hop_ip            = optional(string)
-    next_hop_instance      = optional(string)
-    next_hop_instance_zone = optional(string)
-    next_hop_vpn_tunnel    = optional(string)
-    next_hop_ilb           = optional(string)
-    priority               = optional(number)
+    description            = string
+    tags                   = string
+    destination_range      = string
+    next_hop_internet      = string
+    next_hop_ip            = string
+    next_hop_instance      = string
+    next_hop_instance_zone = string
+    next_hop_vpn_tunnel    = string
+    next_hop_ilb           = string
+    priority               = number
   }))
 
   default = {
     "route" = {
       description            = "Subnet route to example"
       tags                   = "test1 , test2"
-      destination_range      = "10.0.0.0/16" # This defines the destination for the static route
-      next_hop_internet      = "true"        # Use default internet gateway
-      next_hop_ip            = null          # Static routes can use IPs if necessary
-      next_hop_instance      = null          # Use instance if needed
-      next_hop_instance_zone = null          # Zone of the instance if using
-      next_hop_vpn_tunnel    = null          # VPN tunnel if applicable
-      next_hop_ilb           = null          # Internal load balancer if needed
-      priority               = 1000          # Priority for the route
+      destination_range      = "0.0.0.0/0" # This defines the destination for the static route
+      next_hop_internet      = "true"      # Use default internet gateway
+      next_hop_ip            = null        # Empty string as default
+      next_hop_instance      = null        # Empty string as default
+      next_hop_instance_zone = null        # Empty string as default
+      next_hop_vpn_tunnel    = null        # Empty string as default
+      next_hop_ilb           = null        # Empty string as default
+      priority               = 1000        # Priority for the route
     }
   }
 }
 
 variable "bgp_advertise_mode" {
   type        = string
-  default     = "DEFAULT"
+  default     = "CUSTOM"
   description = "BGP advertisement mode (DEFAULT or CUSTOM)."
 }
 
@@ -261,7 +261,7 @@ variable "bgp_keepalive_interval" {
 
 variable "encrypted_interconnect_router" {
   type        = bool
-  default     = false
+  default     = true
   description = "Indicates if the router is dedicated for encrypted VLAN attachments."
 }
 

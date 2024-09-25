@@ -70,6 +70,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | Name | Type |
 |------|------|
 | [google_compute_address.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address) | resource |
+| [google_compute_firewall.allow_icmp_ssh](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_route.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_route) | resource |
 | [google_compute_router.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router) | resource |
 | [google_compute_router_nat.nat](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat) | resource |
@@ -84,14 +85,14 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_address_enabled"></a> [address\_enabled](#input\_address\_enabled) | Enable or disable address functionality. | `bool` | `true` | no |
 | <a name="input_address_type"></a> [address\_type](#input\_address\_type) | Type of address to reserve (INTERNAL or EXTERNAL). | `string` | `"EXTERNAL"` | no |
 | <a name="input_asn"></a> [asn](#input\_asn) | Local BGP Autonomous System Number (ASN). | `number` | `64514` | no |
-| <a name="input_bgp_advertise_mode"></a> [bgp\_advertise\_mode](#input\_bgp\_advertise\_mode) | BGP advertisement mode (DEFAULT or CUSTOM). | `string` | `"DEFAULT"` | no |
+| <a name="input_bgp_advertise_mode"></a> [bgp\_advertise\_mode](#input\_bgp\_advertise\_mode) | BGP advertisement mode (DEFAULT or CUSTOM). | `string` | `"CUSTOM"` | no |
 | <a name="input_bgp_advertised_groups"></a> [bgp\_advertised\_groups](#input\_bgp\_advertised\_groups) | List of prefix groups to advertise in custom mode. | `list(string)` | `[]` | no |
 | <a name="input_bgp_advertised_ip_ranges"></a> [bgp\_advertised\_ip\_ranges](#input\_bgp\_advertised\_ip\_ranges) | List of individual IP ranges to advertise in custom mode. | <pre>list(object({<br>    range       = string<br>    description = string<br>  }))</pre> | `[]` | no |
 | <a name="input_bgp_keepalive_interval"></a> [bgp\_keepalive\_interval](#input\_bgp\_keepalive\_interval) | Interval in seconds between BGP keepalive messages. | `number` | `20` | no |
 | <a name="input_description"></a> [description](#input\_description) | Optional description of the VPC. | `string` | `""` | no |
 | <a name="input_drain_nat_ips"></a> [drain\_nat\_ips](#input\_drain\_nat\_ips) | A list of URLs of the IP resources to be drained. These IPs must be valid static external IPs that have been assigned to the NAT. | `list(string)` | `[]` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Enable or disable main functionality. | `bool` | `true` | no |
-| <a name="input_encrypted_interconnect_router"></a> [encrypted\_interconnect\_router](#input\_encrypted\_interconnect\_router) | Indicates if the router is dedicated for encrypted VLAN attachments. | `bool` | `false` | no |
+| <a name="input_encrypted_interconnect_router"></a> [encrypted\_interconnect\_router](#input\_encrypted\_interconnect\_router) | Indicates if the router is dedicated for encrypted VLAN attachments. | `bool` | `true` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment (e.g., `prod`, `dev`, `staging`). | `string` | `""` | no |
 | <a name="input_extra_tags"></a> [extra\_tags](#input\_extra\_tags) | Additional tags for the resource. | `map(string)` | `{}` | no |
 | <a name="input_icmp_idle_timeout_sec"></a> [icmp\_idle\_timeout\_sec](#input\_icmp\_idle\_timeout\_sec) | Timeout for ICMP connections (in seconds). | `number` | `30` | no |
@@ -110,7 +111,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_nat_ip_allocate_option"></a> [nat\_ip\_allocate\_option](#input\_nat\_ip\_allocate\_option) | Specifies how NAT IPs should be allocated. Options are AUTO\_ONLY or MANUAL\_ONLY. | `string` | `"AUTO_ONLY"` | no |
 | <a name="input_network"></a> [network](#input\_network) | The VPC network the subnets belong to. | `string` | `""` | no |
 | <a name="input_network_tier"></a> [network\_tier](#input\_network\_tier) | Networking tier (PREMIUM or STANDARD). | `string` | `"PREMIUM"` | no |
-| <a name="input_private_ip_google_access"></a> [private\_ip\_google\_access](#input\_private\_ip\_google\_access) | Enable private IP Google access for the subnetwork. | `bool` | `false` | no |
+| <a name="input_private_ip_google_access"></a> [private\_ip\_google\_access](#input\_private\_ip\_google\_access) | Enable private IP Google access for the subnetwork. | `bool` | `true` | no |
 | <a name="input_private_ipv6_google_access"></a> [private\_ipv6\_google\_access](#input\_private\_ipv6\_google\_access) | Enable private IPv6 Google access for the subnetwork. | `bool` | `false` | no |
 | <a name="input_purpose"></a> [purpose](#input\_purpose) | Purpose of the resource (e.g., PRIVATE\_RFC\_1918, PRIVATE\_SERVICE\_CONNECT). | `string` | `""` | no |
 | <a name="input_region"></a> [region](#input\_region) | Google Cloud region for the subnetwork. | `string` | `""` | no |
@@ -118,7 +119,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_route_enabled"></a> [route\_enabled](#input\_route\_enabled) | Flag to enable the route | `bool` | `true` | no |
 | <a name="input_router_enabled"></a> [router\_enabled](#input\_router\_enabled) | Enable or disable the router. | `bool` | `true` | no |
 | <a name="input_router_nat_enabled"></a> [router\_nat\_enabled](#input\_router\_nat\_enabled) | Enable or disable NAT functionality for the router. | `bool` | `true` | no |
-| <a name="input_routes"></a> [routes](#input\_routes) | Map of routes to be created | <pre>map(object({<br>    description            = optional(string)<br>    tags                   = optional(string)<br>    destination_range      = optional(string)<br>    next_hop_internet      = optional(string)<br>    next_hop_ip            = optional(string)<br>    next_hop_instance      = optional(string)<br>    next_hop_instance_zone = optional(string)<br>    next_hop_vpn_tunnel    = optional(string)<br>    next_hop_ilb           = optional(string)<br>    priority               = optional(number)<br>  }))</pre> | <pre>{<br>  "route": {<br>    "description": "Subnet route to example",<br>    "destination_range": "10.0.0.0/16",<br>    "next_hop_ilb": null,<br>    "next_hop_instance": null,<br>    "next_hop_instance_zone": null,<br>    "next_hop_internet": "true",<br>    "next_hop_ip": null,<br>    "next_hop_vpn_tunnel": null,<br>    "priority": 1000,<br>    "tags": "test1 , test2"<br>  }<br>}</pre> | no |
+| <a name="input_routes"></a> [routes](#input\_routes) | Map of routes to be created | <pre>map(object({<br>    description            = string<br>    tags                   = string<br>    destination_range      = string<br>    next_hop_internet      = string<br>    next_hop_ip            = string<br>    next_hop_instance      = string<br>    next_hop_instance_zone = string<br>    next_hop_vpn_tunnel    = string<br>    next_hop_ilb           = string<br>    priority               = number<br>  }))</pre> | <pre>{<br>  "route": {<br>    "description": "Subnet route to example",<br>    "destination_range": "0.0.0.0/0",<br>    "next_hop_ilb": null,<br>    "next_hop_instance": null,<br>    "next_hop_instance_zone": null,<br>    "next_hop_internet": "true",<br>    "next_hop_ip": null,<br>    "next_hop_vpn_tunnel": null,<br>    "priority": 1000,<br>    "tags": "test1 , test2"<br>  }<br>}</pre> | no |
 | <a name="input_secondary_ip_ranges"></a> [secondary\_ip\_ranges](#input\_secondary\_ip\_ranges) | Secondary IP ranges for the subnetwork. | <pre>map(list(object({<br>    range_name    = string<br>    ip_cidr_range = string<br>  })))</pre> | `{}` | no |
 | <a name="input_source_subnetwork_ip_ranges_to_nat"></a> [source\_subnetwork\_ip\_ranges\_to\_nat](#input\_source\_subnetwork\_ip\_ranges\_to\_nat) | NAT configuration per subnetwork. | `string` | `"ALL_SUBNETWORKS_ALL_IP_RANGES"` | no |
 | <a name="input_stack_type"></a> [stack\_type](#input\_stack\_type) | Stack type (e.g., IPV4\_ONLY, IPV6\_ONLY, IPV4\_IPV6). | `string` | `"IPV4_ONLY"` | no |

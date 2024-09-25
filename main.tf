@@ -19,8 +19,8 @@ data "google_client_config" "current" {
 #####==============================================================================
 #tfsec:ignore:google-compute-enable-vpc-flow-logs
 resource "google_compute_subnetwork" "subnetwork" {
-  count         = length(var.subnet_names)
-  name          = var.subnet_names[count.index]
+  count         = length(var.subnet_names) > 0 && length(var.ip_cidr_range) > 0 ? min(length(var.subnet_names), length(var.ip_cidr_range)) : 0
+  name          = "${var.subnet_names[count.index]}-${module.labels.id}"
   project       = data.google_client_config.current.project
   network       = var.network
   region        = var.region
@@ -34,7 +34,7 @@ resource "google_compute_subnetwork" "subnetwork" {
 
   # Use `private_ip_google_access` and `private_ipv6_google_access` as needed
   private_ip_google_access   = var.private_ip_google_access
-  private_ipv6_google_access = var.stack_type == "IPV4_ONLY" ? null : var.private_ipv6_google_access
+  private_ipv6_google_access = var.stack_type == "IPV6_ONLY" ? null : var.private_ipv6_google_access
 
   dynamic "secondary_ip_range" {
     for_each = contains(keys(var.secondary_ip_ranges), var.subnet_names[count.index]) ? var.secondary_ip_ranges[var.subnet_names[count.index]] : []
@@ -74,9 +74,9 @@ resource "google_compute_route" "default" {
 
   project     = data.google_client_config.current.project
   network     = var.network # This should point to your VPC network
-  name        = element(keys(var.routes), count.index)
+  name        = "${element(keys(var.routes), count.index)}-${module.labels.id}"
   description = lookup(var.routes[element(keys(var.routes), count.index)], "description", null)
-  tags        = compact([for tag in split(",", lookup(var.routes[element(keys(var.routes), count.index)], "tags", "")) : trimspace(tag) if length(trimspace(tag)) > 0])
+  tags        = null #compact([for tag in split(",", lookup(var.routes[element(keys(var.routes), count.index)], "tags", "")) : trimspace(tag) if length(trimspace(tag)) > 0])
   dest_range  = lookup(var.routes[element(keys(var.routes), count.index)], "destination_range", null)
 
   # Determine next hop based on your requirements
@@ -90,8 +90,6 @@ resource "google_compute_route" "default" {
   # Ensure priority is set correctly
   priority = lookup(var.routes[element(keys(var.routes), count.index)], "priority", null)
 }
-
-
 
 #####==============================================================================
 ##### Represents a Router resource.
@@ -148,7 +146,6 @@ resource "google_compute_address" "default" {
   network_tier       = var.address_type == "EXTERNAL" ? var.network_tier : null
 }
 
-
 #####==============================================================================
 ##### A NAT service created in a router.
 #####==============================================================================
@@ -164,15 +161,13 @@ resource "google_compute_router_nat" "nat" {
   nat_ips = var.nat_ip_allocate_option == "MANUAL_ONLY" ? [google_compute_address.default[0].self_link] : []
 
   # Optionally set drain_nat_ips
-  drain_nat_ips = var.drain_nat_ips
-
+  drain_nat_ips                      = var.drain_nat_ips
   source_subnetwork_ip_ranges_to_nat = var.source_subnetwork_ip_ranges_to_nat
-
-  udp_idle_timeout_sec             = var.udp_idle_timeout_sec
-  icmp_idle_timeout_sec            = var.icmp_idle_timeout_sec
-  tcp_established_idle_timeout_sec = var.tcp_established_idle_timeout_sec
-  tcp_transitory_idle_timeout_sec  = var.tcp_transitory_idle_timeout_sec
-  tcp_time_wait_timeout_sec        = var.tcp_time_wait_timeout_sec
+  udp_idle_timeout_sec               = var.udp_idle_timeout_sec
+  icmp_idle_timeout_sec              = var.icmp_idle_timeout_sec
+  tcp_established_idle_timeout_sec   = var.tcp_established_idle_timeout_sec
+  tcp_transitory_idle_timeout_sec    = var.tcp_transitory_idle_timeout_sec
+  tcp_time_wait_timeout_sec          = var.tcp_time_wait_timeout_sec
 
   log_config {
     enable = var.log_enable
