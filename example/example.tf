@@ -1,5 +1,5 @@
 provider "google" {
-  project = "xxxxxxxx"
+  project = "waanee"
   region  = "asia-northeast1"
   zone    = "asia-northeast1-a"
 }
@@ -22,7 +22,7 @@ module "vpc" {
 #####==============================================================================
 module "subnet" {
   source        = "../"
-  subnet_names  = ["subnet-a", "subnet-b"]
+  name          = ["subnet-a", "subnet-b"]
   environment   = "test"
   region        = "asia-northeast1"
   network       = module.vpc.vpc_id

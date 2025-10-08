@@ -25,7 +25,7 @@ To get started, make sure you have configured your GCP provider. You can use the
 module "subnet" {
   source        = "cypik/subnet/google"
   version       = "1.0.3"
-  subnet_names  = ["subnet-a", "subnet-b"]
+  name          = ["subnet-a", "subnet-b"]
   environment   = "test"
   region        = "asia-northeast1"
   network       = module.vpc.vpc_id
@@ -105,6 +105,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_log_filter"></a> [log\_filter](#input\_log\_filter) | Log filtering option (ERRORS\_ONLY, TRANSLATIONS\_ONLY, ALL). | `string` | `"ALL"` | no |
 | <a name="input_managedby"></a> [managedby](#input\_managedby) | ManagedBy, eg 'info@cypik.com' | `string` | `"info@cypik.com"` | no |
 | <a name="input_module_timeouts"></a> [module\_timeouts](#input\_module\_timeouts) | Timeout configurations for operations. | `any` | `{}` | no |
+| <a name="input_name"></a> [name](#input\_name) | The names of the subnets. | `list(string)` | `[]` | no |
 | <a name="input_nat_ip_allocate_option"></a> [nat\_ip\_allocate\_option](#input\_nat\_ip\_allocate\_option) | Specifies how NAT IPs should be allocated. Options are AUTO\_ONLY or MANUAL\_ONLY. | `string` | `"AUTO_ONLY"` | no |
 | <a name="input_network"></a> [network](#input\_network) | The VPC network the subnets belong to. | `string` | `""` | no |
 | <a name="input_network_tier"></a> [network\_tier](#input\_network\_tier) | Networking tier (PREMIUM or STANDARD). | `string` | `"PREMIUM"` | no |
@@ -120,7 +121,6 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_secondary_ip_ranges"></a> [secondary\_ip\_ranges](#input\_secondary\_ip\_ranges) | Secondary IP ranges for the subnetwork. | <pre>map(list(object({<br>    range_name    = string<br>    ip_cidr_range = string<br>  })))</pre> | `{}` | no |
 | <a name="input_source_subnetwork_ip_ranges_to_nat"></a> [source\_subnetwork\_ip\_ranges\_to\_nat](#input\_source\_subnetwork\_ip\_ranges\_to\_nat) | NAT configuration per subnetwork. | `string` | `"ALL_SUBNETWORKS_ALL_IP_RANGES"` | no |
 | <a name="input_stack_type"></a> [stack\_type](#input\_stack\_type) | Stack type (e.g., IPV4\_ONLY, IPV6\_ONLY, IPV4\_IPV6). | `string` | `"IPV4_ONLY"` | no |
-| <a name="input_subnet_names"></a> [subnet\_names](#input\_subnet\_names) | The names of the subnets. | `list(string)` | `[]` | no |
 | <a name="input_subnetwork"></a> [subnetwork](#input\_subnetwork) | URL of the subnetwork to reserve the address in. | `string` | `null` | no |
 | <a name="input_subnetworks"></a> [subnetworks](#input\_subnetworks) | List of subnetworks with NAT configurations. | <pre>list(object({<br>    name                     = string<br>    source_ip_ranges_to_nat  = string<br>    secondary_ip_range_names = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_tcp_established_idle_timeout_sec"></a> [tcp\_established\_idle\_timeout\_sec](#input\_tcp\_established\_idle\_timeout\_sec) | Timeout for TCP established connections (in seconds). | `number` | `1200` | no |

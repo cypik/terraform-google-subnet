@@ -1,5 +1,5 @@
 # 1. General Information and Identifiers
-variable "subnet_names" {
+variable "name" {
   type        = list(string)
   default     = []
   description = "The names of the subnets."

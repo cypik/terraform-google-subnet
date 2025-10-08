@@ -1,7 +1,7 @@
 module "labels" {
   source      = "cypik/labels/google"
   version     = "1.0.2"
-  name        = length(var.subnet_names) > 0 ? var.subnet_names[0] : "default"
+  name        = length(var.name) > 0 ? var.name[0] : "default"
   environment = var.environment
   label_order = var.label_order
   managedby   = var.managedby
@@ -19,8 +19,8 @@ data "google_client_config" "current" {
 #####==============================================================================
 #tfsec:ignore:google-compute-enable-vpc-flow-logs
 resource "google_compute_subnetwork" "subnetwork" {
-  count         = length(var.subnet_names) > 0 && length(var.ip_cidr_range) > 0 ? min(length(var.subnet_names), length(var.ip_cidr_range)) : 0
-  name          = "${var.subnet_names[count.index]}-${module.labels.environment}"
+  count         = length(var.name) > 0 && length(var.ip_cidr_range) > 0 ? min(length(var.name), length(var.ip_cidr_range)) : 0
+  name          = "${var.name[count.index]}-${module.labels.environment}"
   project       = data.google_client_config.current.project
   network       = var.network
   region        = var.region
@@ -37,7 +37,7 @@ resource "google_compute_subnetwork" "subnetwork" {
   private_ipv6_google_access = var.stack_type == "IPV6_ONLY" ? null : var.private_ipv6_google_access
 
   dynamic "secondary_ip_range" {
-    for_each = contains(keys(var.secondary_ip_ranges), var.subnet_names[count.index]) ? var.secondary_ip_ranges[var.subnet_names[count.index]] : []
+    for_each = contains(keys(var.secondary_ip_ranges), var.name[count.index]) ? var.secondary_ip_ranges[var.name[count.index]] : []
 
     content {
       range_name    = secondary_ip_range.value.range_name
