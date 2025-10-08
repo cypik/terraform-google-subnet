@@ -10,7 +10,7 @@ provider "google" {
 module "vpc" {
   source                                    = "cypik/vpc/google"
   version                                   = "1.0.2"
-  name                                      = "vpn"
+  name                                      = "app"
   environment                               = "test"
   routing_mode                              = "REGIONAL"
   mtu                                       = 1500
