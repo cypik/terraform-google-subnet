@@ -1,7 +1,7 @@
 module "labels" {
   source      = "cypik/labels/google"
   version     = "1.0.2"
-  name        = var.name
+  name        = length(var.subnet_names) > 0 ? var.subnet_names[0] : "default"
   environment = var.environment
   label_order = var.label_order
   managedby   = var.managedby
@@ -20,7 +20,7 @@ data "google_client_config" "current" {
 #tfsec:ignore:google-compute-enable-vpc-flow-logs
 resource "google_compute_subnetwork" "subnetwork" {
   count         = length(var.subnet_names) > 0 && length(var.ip_cidr_range) > 0 ? min(length(var.subnet_names), length(var.ip_cidr_range)) : 0
-  name          = "${var.subnet_names[count.index]}-${module.labels.id}"
+  name          = "${var.subnet_names[count.index]}-${module.labels.environment}"
   project       = data.google_client_config.current.project
   network       = var.network
   region        = var.region
@@ -158,7 +158,7 @@ resource "google_compute_router_nat" "nat" {
   nat_ip_allocate_option = var.nat_ip_allocate_option
 
   # Check if natIpAllocateOption is MANUAL_ONLY to use manual IP assignment
-  nat_ips = var.nat_ip_allocate_option == "MANUAL_ONLY" ? [google_compute_address.default[0].self_link] : []
+  nat_ips = var.nat_ip_allocate_option == "MANUAL_ONLY" ? compact([try(google_compute_address.default[0].self_link, null)]) : []
 
   # Optionally set drain_nat_ips
   drain_nat_ips                      = var.drain_nat_ips

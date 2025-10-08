@@ -1,5 +1,5 @@
 provider "google" {
-  project = "soy-smile-435017-c5"
+  project = "waanee"
   region  = "asia-northeast1"
   zone    = "asia-northeast1-a"
 }
@@ -10,7 +10,7 @@ provider "google" {
 module "vpc" {
   source                                    = "cypik/vpc/google"
   version                                   = "1.0.2"
-  name                                      = "app"
+  name                                      = "vpn"
   environment                               = "test"
   routing_mode                              = "REGIONAL"
   mtu                                       = 1500
@@ -22,9 +22,8 @@ module "vpc" {
 #####==============================================================================
 module "subnet" {
   source        = "../"
-  name          = "app"
-  environment   = "test"
   subnet_names  = ["subnet-a", "subnet-b"]
+  environment   = "test"
   region        = "asia-northeast1"
   network       = module.vpc.vpc_id
   ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24"]
