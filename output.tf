@@ -69,52 +69,52 @@ output "router_self_link" {
 # Outputs for google_compute_address
 output "address_name" {
   description = "The name of the GCP address."
-  value       = join("", google_compute_address.default[*].name)
+  value       = length(google_compute_address.default) > 0 ? join("", google_compute_address.default[*].name) : ""
 }
 
 output "address_project" {
   description = "The project of the GCP address."
-  value       = join("", google_compute_address.default[*].project)
+  value       = length(google_compute_address.default) > 0 ? join("", google_compute_address.default[*].project) : ""
 }
 
 output "address_region" {
   description = "The region of the GCP address."
-  value       = join("", google_compute_address.default[*].region)
+  value       = length(google_compute_address.default) > 0 ? join("", google_compute_address.default[*].region) : ""
 }
 
 output "address_id" {
-  description = "The ID of the GCP address in the format: projects/{{project}}/regions/{{region}}/addresses/{{name}}"
-  value       = join("", google_compute_address.default[*].id)
+  description = "The ID of the GCP address."
+  value       = length(google_compute_address.default) > 0 ? join("", google_compute_address.default[*].id) : ""
 }
 
 output "address_self_link" {
-  description = "The self_link of the GCP address resource."
-  value       = join("", google_compute_address.default[*].self_link)
+  description = "The self_link of the GCP address."
+  value       = length(google_compute_address.default) > 0 ? join("", google_compute_address.default[*].self_link) : ""
 }
 
 output "address_users" {
   description = "The resources using this address."
-  value       = join("", google_compute_address.default[0].users)
+  value       = length(google_compute_address.default) > 0 ? google_compute_address.default[0].users : []
 }
 
 output "address_label_fingerprint" {
   description = "The fingerprint used for optimistic locking."
-  value       = join("", google_compute_address.default[*].label_fingerprint)
+  value       = length(google_compute_address.default) > 0 ? join("", google_compute_address.default[*].label_fingerprint) : ""
 }
 
 output "address_terraform_labels" {
-  description = "Labels that are directly configured on the resource, including default labels."
-  value       = join(", ", [for k, v in google_compute_address.default[0].terraform_labels : "${k}=${v}"])
+  description = "Labels that are directly configured on the resource."
+  value       = length(google_compute_address.default) > 0 ? join(", ", [for k, v in google_compute_address.default[0].terraform_labels : "${k}=${v}"]) : ""
 }
 
 output "address_effective_labels" {
   description = "All labels (key/value pairs) currently applied to the resource."
-  value       = join(", ", [for k, v in google_compute_address.default[0].effective_labels : "${k}=${v}"])
+  value       = length(google_compute_address.default) > 0 ? join(", ", [for k, v in google_compute_address.default[0].effective_labels : "${k}=${v}"]) : ""
 }
 
 output "address_creation_timestamp" {
   description = "Creation timestamp of the GCP address in RFC3339 format."
-  value       = join("", google_compute_address.default[*].creation_timestamp)
+  value       = length(google_compute_address.default) > 0 ? join("", google_compute_address.default[*].creation_timestamp) : ""
 }
 
 # Outputs for google_compute_router_nat

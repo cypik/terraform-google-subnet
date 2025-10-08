@@ -24,10 +24,9 @@ To get started, make sure you have configured your GCP provider. You can use the
 ```hcl
 module "subnet" {
   source        = "cypik/subnet/google"
-  version       = "1.0.2"
-  name          = "app"
+  version       = "1.0.3"
+  name          = ["subnet-a", "subnet-b"]
   environment   = "test"
-  subnet_names  = ["subnet-a", "subnet-b"]
   region        = "asia-northeast1"
   network       = module.vpc.vpc_id
   ip_cidr_range = ["10.10.1.0/24", "10.10.5.0/24"]
@@ -50,7 +49,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.5 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.13.3 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | >=6.1.0 |
 
 ## Providers
@@ -81,7 +80,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_address"></a> [address](#input\_address) | List of addresses. | `list(string)` | `[]` | no |
-| <a name="input_address_enabled"></a> [address\_enabled](#input\_address\_enabled) | Enable or disable address functionality. | `bool` | `true` | no |
+| <a name="input_address_enabled"></a> [address\_enabled](#input\_address\_enabled) | Enable or disable address functionality. | `bool` | `false` | no |
 | <a name="input_address_type"></a> [address\_type](#input\_address\_type) | Type of address to reserve (INTERNAL or EXTERNAL). | `string` | `"EXTERNAL"` | no |
 | <a name="input_asn"></a> [asn](#input\_asn) | Local BGP Autonomous System Number (ASN). | `number` | `64514` | no |
 | <a name="input_bgp_advertise_mode"></a> [bgp\_advertise\_mode](#input\_bgp\_advertise\_mode) | BGP advertisement mode (DEFAULT or CUSTOM). | `string` | `"CUSTOM"` | no |
@@ -106,7 +105,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_log_filter"></a> [log\_filter](#input\_log\_filter) | Log filtering option (ERRORS\_ONLY, TRANSLATIONS\_ONLY, ALL). | `string` | `"ALL"` | no |
 | <a name="input_managedby"></a> [managedby](#input\_managedby) | ManagedBy, eg 'info@cypik.com' | `string` | `"info@cypik.com"` | no |
 | <a name="input_module_timeouts"></a> [module\_timeouts](#input\_module\_timeouts) | Timeout configurations for operations. | `any` | `{}` | no |
-| <a name="input_name"></a> [name](#input\_name) | The name of the resource, provided by the client when initially creating the resource. | `string` | `""` | no |
+| <a name="input_name"></a> [name](#input\_name) | The names of the subnets. | `list(string)` | `[]` | no |
 | <a name="input_nat_ip_allocate_option"></a> [nat\_ip\_allocate\_option](#input\_nat\_ip\_allocate\_option) | Specifies how NAT IPs should be allocated. Options are AUTO\_ONLY or MANUAL\_ONLY. | `string` | `"AUTO_ONLY"` | no |
 | <a name="input_network"></a> [network](#input\_network) | The VPC network the subnets belong to. | `string` | `""` | no |
 | <a name="input_network_tier"></a> [network\_tier](#input\_network\_tier) | Networking tier (PREMIUM or STANDARD). | `string` | `"PREMIUM"` | no |
@@ -122,7 +121,6 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_secondary_ip_ranges"></a> [secondary\_ip\_ranges](#input\_secondary\_ip\_ranges) | Secondary IP ranges for the subnetwork. | <pre>map(list(object({<br>    range_name    = string<br>    ip_cidr_range = string<br>  })))</pre> | `{}` | no |
 | <a name="input_source_subnetwork_ip_ranges_to_nat"></a> [source\_subnetwork\_ip\_ranges\_to\_nat](#input\_source\_subnetwork\_ip\_ranges\_to\_nat) | NAT configuration per subnetwork. | `string` | `"ALL_SUBNETWORKS_ALL_IP_RANGES"` | no |
 | <a name="input_stack_type"></a> [stack\_type](#input\_stack\_type) | Stack type (e.g., IPV4\_ONLY, IPV6\_ONLY, IPV4\_IPV6). | `string` | `"IPV4_ONLY"` | no |
-| <a name="input_subnet_names"></a> [subnet\_names](#input\_subnet\_names) | The names of the subnets. | `list(string)` | `[]` | no |
 | <a name="input_subnetwork"></a> [subnetwork](#input\_subnetwork) | URL of the subnetwork to reserve the address in. | `string` | `null` | no |
 | <a name="input_subnetworks"></a> [subnetworks](#input\_subnetworks) | List of subnetworks with NAT configurations. | <pre>list(object({<br>    name                     = string<br>    source_ip_ranges_to_nat  = string<br>    secondary_ip_range_names = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_tcp_established_idle_timeout_sec"></a> [tcp\_established\_idle\_timeout\_sec](#input\_tcp\_established\_idle\_timeout\_sec) | Timeout for TCP established connections (in seconds). | `number` | `1200` | no |
@@ -136,13 +134,13 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 |------|-------------|
 | <a name="output_address_creation_timestamp"></a> [address\_creation\_timestamp](#output\_address\_creation\_timestamp) | Creation timestamp of the GCP address in RFC3339 format. |
 | <a name="output_address_effective_labels"></a> [address\_effective\_labels](#output\_address\_effective\_labels) | All labels (key/value pairs) currently applied to the resource. |
-| <a name="output_address_id"></a> [address\_id](#output\_address\_id) | The ID of the GCP address in the format: projects/{{project}}/regions/{{region}}/addresses/{{name}} |
+| <a name="output_address_id"></a> [address\_id](#output\_address\_id) | The ID of the GCP address. |
 | <a name="output_address_label_fingerprint"></a> [address\_label\_fingerprint](#output\_address\_label\_fingerprint) | The fingerprint used for optimistic locking. |
 | <a name="output_address_name"></a> [address\_name](#output\_address\_name) | The name of the GCP address. |
 | <a name="output_address_project"></a> [address\_project](#output\_address\_project) | The project of the GCP address. |
 | <a name="output_address_region"></a> [address\_region](#output\_address\_region) | The region of the GCP address. |
-| <a name="output_address_self_link"></a> [address\_self\_link](#output\_address\_self\_link) | The self\_link of the GCP address resource. |
-| <a name="output_address_terraform_labels"></a> [address\_terraform\_labels](#output\_address\_terraform\_labels) | Labels that are directly configured on the resource, including default labels. |
+| <a name="output_address_self_link"></a> [address\_self\_link](#output\_address\_self\_link) | The self\_link of the GCP address. |
+| <a name="output_address_terraform_labels"></a> [address\_terraform\_labels](#output\_address\_terraform\_labels) | Labels that are directly configured on the resource. |
 | <a name="output_address_users"></a> [address\_users](#output\_address\_users) | The resources using this address. |
 | <a name="output_route_id"></a> [route\_id](#output\_route\_id) | The name of the GCP route. |
 | <a name="output_route_next_hop_network"></a> [route\_next\_hop\_network](#output\_route\_next\_hop\_network) | The next hop network of the GCP route. |

@@ -1,11 +1,5 @@
 # 1. General Information and Identifiers
 variable "name" {
-  type        = string
-  default     = ""
-  description = "The name of the resource, provided by the client when initially creating the resource."
-}
-
-variable "subnet_names" {
   type        = list(string)
   default     = []
   description = "The names of the subnets."
@@ -167,7 +161,7 @@ variable "enabled" {
 
 variable "address_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "Enable or disable address functionality."
 }
 
